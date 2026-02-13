@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/question.dart';
 
 void main() => runApp(Quizzler());
 
@@ -26,25 +27,37 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
-  List<String> questions = [
-    'You can lead a cow down stairs but not up stairs.',
-    'Approximately one quarter of human bones are in the feet.',
-    'A slug\'s blood is green.',
-    // 'The capital of India is New Delhi.',
-    // 'The Great Wall of China is visible from space.',
-    // 'Light travels faster than sound.',
-    // 'Shakespeare wrote "Hamlet".',
-    // 'The Pacific Ocean is the smallest ocean.',
-    // 'Jupiter is the largest planet in our solar system.',
-    // 'The chemical symbol for gold is Ag.',
-  ];
-  int questionNumber = 0;
+  // List<String> questions = [
+  //   'You can lead a cow down stairs but not up stairs.',
+  //   'Approximately one quarter of human bones are in the feet.',
+  //   'A slug\'s blood is green.',
+  //   // 'The capital of India is New Delhi.',
+  //   // 'The Great Wall of China is visible from space.',
+  //   // 'Light travels faster than sound.',
+  //   // 'Shakespeare wrote "Hamlet".',
+  //   // 'The Pacific Ocean is the smallest ocean.',
+  //   // 'Jupiter is the largest planet in our solar system.',
+  //   // 'The chemical symbol for gold is Ag.',
+  // ];
+
+  // List<bool> answers = [
+  //   false,
+  //   true,
+  //   true /*, true, false, true, true, false, true, false*/,
+  // ];
+
   int TotalcorrectAnswers = 0;
-  List<bool> answers = [
-    false,
-    true,
-    true /*, true, false, true, true, false, true, false*/,
+
+  List<Question> questionBank = [
+    Question('You can lead a cow down stairs but not up stairs.', false),
+    Question('Approximately one quarter of human bones are in the feet.', true),
+    Question('A slug\'s blood is green.', true),
+    Question('The Earth is the third planet from the Sun.', true),
+    Question('The Moon is Earth\'s only natural satellite.', true),
   ];
+
+  int questionNumber = 0;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -57,7 +70,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questions[questionNumber],
+                questionBank[questionNumber].questionText,
                 style: TextStyle(
                   fontSize: 25.0,
                   color: Colors.white,
@@ -80,9 +93,13 @@ class _QuizPageState extends State<QuizPage> {
               ),
               child: Text('True', style: TextStyle(fontSize: 20.0)),
               onPressed: () {
-                bool correctAnswer = answers[questionNumber];
+                bool correctAnswer =
+                    questionBank[questionNumber].questionAnswer;
                 if (correctAnswer == true) {
                   TotalcorrectAnswers++;
+                  print("you got it right");
+                } else {
+                  print("you got it wrong");
                 }
                 setState(() {
                   scoreKeeper.add(Icon(Icons.check, color: Colors.green));
@@ -103,9 +120,13 @@ class _QuizPageState extends State<QuizPage> {
               ),
               child: Text('False', style: TextStyle(fontSize: 20.0)),
               onPressed: () {
-                bool correctAnswer = answers[questionNumber];
+                bool correctAnswer =
+                    questionBank[questionNumber].questionAnswer;
                 if (correctAnswer == false) {
                   TotalcorrectAnswers++;
+                  print("you got it right");
+                } else {
+                  print("you got it wrong");
                 }
                 setState(() {
                   scoreKeeper.add(Icon(Icons.close, color: Colors.red));
